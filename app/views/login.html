@@ -15,6 +15,14 @@
     <p>密&nbsp;&nbsp;码：&nbsp;
         <input type="password" name="password">
     </p>
+    <div>
+        <label>验证码 (
+            <?php echo $ques; ?>)：</label>
+        <br/>
+        <canvas id="vtt_captcha" width="680" height="460" rel="<?php echo substr($jpg, 4,strlen($jpg)-8); ?>"></canvas>
+        <input type="hidden" id="captcha_x" name="captcha_x" value="">
+        <input type="hidden" id="captcha_y" name="captcha_y" value="">
+    </div>
     <p>
         <input type="submit" value="登录">
     </p>
