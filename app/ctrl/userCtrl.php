@@ -1,6 +1,7 @@
 <?php
 namespace app\ctrl;
 use app\model\userModel;
+use app\model\captchaModel;
 
 
 class userCtrl extends \core\mypro
@@ -16,7 +17,22 @@ class userCtrl extends \core\mypro
 			$this->display('user.html');
 		}
 		
-    }
+	}
+	
+	public function test()
+	{
+		if(empty($_POST)){
+			$captcha = new captchaModel();
+			$src = $captcha->src;
+			$ques = $captcha->ques;
+			$this->assign('src',$src);
+			$this->assign('ques',$ques);
+			$this->display('captcha.html');
+		}else{
+			dp($_POST);
+		}
+
+	}
     
 
     public function change()
