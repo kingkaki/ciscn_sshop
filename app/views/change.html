@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Change Pass</title>
+</head>
+
+<body>
+    <h1>Change Pass</h1>
+
+
+    <h2>
+        <?php echo $user['username']; ?>
+    </h2>
+
+    <form action="/user/change/" method="post">
+        <p>密&nbsp;&nbsp;码：&nbsp;
+            <input type="password" name="old_password">
+        </p>
+
+        <p>新密码：&nbsp;
+            <input type="password" name="new_password">
+        </p>
+        <p>重复密码：&nbsp;
+            <input type="password" name="new_password_repeat">
+        </p>
+        <p>
+            <input type="submit" value="修改密码">
+        </p>
+    </form>
+    <?php 
+        if(empty($tips)){
+            echo $tips;
+        }
+    ?>
+
+</body>
+
+</html>

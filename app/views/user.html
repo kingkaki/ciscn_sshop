@@ -9,34 +9,11 @@
 
 
 <h2>Welcome <?php echo $user['username']; ?></h2>
-<?php if(!empty($user['avatar'])) { ?>
-	<img src="<?php echo $user['avatar'];?>" width="100px" height="100px">
-<?php } ?>
-<form method="POST" action="/user/uploadavatar/" enctype="multipart/form-data">
-	<input type="file" name="avatar">
-	<input type="hidden" name="userid" value="<?php echo $user['id']; ?>">
-	<input type="submit" value="更改头像">
-</form>
-<br>
-<a href="/user/logout/">注销</a>
+
+<a href="/logout/">注销</a>
 &nbsp;&nbsp;
 <a href="/">返回主页</a>
 <br>
-<p>****************我的留言****************</p>
 
-<?php
-if(!empty($data)){
-	foreach($data as $row){ 
-		echo "<p>标题 : ".$row['title']."</p>\n";
-		echo "<p>内容 : ".$row['content']."</p>\n"; 
-		echo "<p>发布时间： ".date('Y-m-d H:i:s',$row['create_time'])."</p>\n";
-		echo "<a href=\"/index/page/?id=".$row['id']. "\">留言详情</a>&nbsp;&nbsp;";
-		echo "<a href=\"/index/del/?id=".$row['id']. "\">删除</a><br><br>";
-		echo "***************************************";
-	}
-}else{
-	echo "目前暂无留言";
-}
-?>
 </body>
 </html>

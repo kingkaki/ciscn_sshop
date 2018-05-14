@@ -12,7 +12,7 @@ class loginCtrl extends \core\mypro
 			session_start();
 		}
 		if(isset($_SESSION['user'])){
-			jump('/user/index/');
+			jump('/user/');
 		}
 		if(!empty($_POST)){
 			$data['username'] = post('username');
@@ -21,7 +21,7 @@ class loginCtrl extends \core\mypro
 			$res = $model->getOne($data);
 			session_start();
 			$_SESSION['user'] = $res; 
-			jump('/user/index/');
+			jump('/user/');
 			exit();
 		}
 		

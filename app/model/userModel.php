@@ -6,7 +6,6 @@ use core\lib\model;
 class userModel extends model
 {
     public $table = 'user';
-    public $page_table = 'page';
 
 	public function addOne($data)
     {
@@ -34,13 +33,14 @@ class userModel extends model
         
     }
 
-    public function getGuestbookById($id)
+    public function setPass($data)
     {
-        $sql = $this->prepare("SELECT * FROM ".$this->page_table." WHERE `userid`= ? ");
-        $sql->execute(array($id));
-        $res = $sql->fetchAll();
-        return $res;
-
+        $sql = $this->prepare("UPDATE ".$this->table." SET `password` = ? where `id` = ?");
+        //dp($sql);
+        return $sql->execute(array(md5($data['password']),$data['id']));
+        
     }
+
+
 
 }
