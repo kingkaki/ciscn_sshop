@@ -21,15 +21,18 @@ class userCtrl extends \core\mypro
 	
 	public function test()
 	{
-		if(empty($_POST)){
-			$captcha = new captchaModel();
+		$captcha = new captchaModel();
+		if(empty($_POST)){	
+			$captcha->init();
 			$src = $captcha->src;
 			$ques = $captcha->ques;
 			$this->assign('src',$src);
 			$this->assign('ques',$ques);
 			$this->display('captcha.html');
 		}else{
-			dp($_POST);
+			$captcha_x = post('captcha_x');
+			$captcha_y = post('captcha_y');
+			dp($captcha->check($captcha_x,$captcha_y));
 		}
 
 	}

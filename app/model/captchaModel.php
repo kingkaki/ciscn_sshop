@@ -7,7 +7,8 @@ class captchaModel
 
     public $ques;
     public $src;
-    public function __construct(){
+
+    public function init(){
         if(!isset($_SESSION)){
             session_start();
         }
@@ -17,6 +18,7 @@ class captchaModel
         $jpg = $jpgs[$num];
         $this->src = conf::get('CAP_JPGS','upload').$jpg;
         $filename = "ans".substr($jpg,4, strlen($jpg)-8).".txt";
+        $this->test = $filename;
         $filedir = APP.conf::get('CAP_ANS','upload').$filename;
         $myfile = fopen($filedir, "r");
 
@@ -34,6 +36,28 @@ class captchaModel
         $_SESSION["width_y_1"]=substr($len4,17);
         $this->ques=substr($len6,11);
         
+    }
+
+    public function check($captcha_x,$captcha_y)
+    {
+        if(!isset($_SESSION)){
+            session_start();
+        }
+        if(!empty($captcha_x) && !empty($captcha_y) && !empty(@$_SESSION['pos_x_1']))
+        {
+ 
+            if(doubleval($_SESSION['pos_x_1'])<=$captcha_x && $captcha_x<=(doubleval($_SESSION['pos_x_1'])+doubleval($_SESSION['width_x_1'])))
+            {
+                if(doubleval($_SESSION['pos_y_1'])<=$captcha_y && $captcha_y <=(doubleval($_SESSION['pos_y_1'])+doubleval($_SESSION['width_y_1'])))
+                {
+                    return TRUE;
+                }else{
+                    return FALSE;
+                }
+            }else{
+                return FALSE;
+            }
+        }
     }
 
 
