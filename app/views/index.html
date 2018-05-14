@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+    <title>Guest Book</title>
+</head>
+<body>
+<h1>Guest Book</h1>
+<?php if(!loggedin()) { ?>
+	<a href="/user/login/">登录</a>后方可留言<br>
+<?php } else { ?>
+	<h3>hello <?php echo $_SESSION['user']['username'] ?></h3>
+	<a href="/index/add/">添加留言</a>
+	<a href="/user/index/">进入个人中心</a>
+<?php }?>
+
+<br><br>
+<?php
+echo "*******************所有留言********************";
+
+foreach($data as $row){ 
+	echo "<p>标题 : ".$row['title']."</p>\n"; 
+	echo "<p>内容 : ".$row['content']."</p>\n"; 
+	date_default_timezone_set('PRC');
+	echo "<p>发布时间： ".date('Y-m-d H:i:s',$row['create_time'])."</p>\n";
+	echo "<a href='/index/page/?id=".$row['id']."'>留言详情</a>&nbsp;&nbsp;";
+	if(!isset($_SESSION)){
+		session_start();
+	}
+	if(isset($_SESSION['user']) && $row['userid']===$_SESSION['user']['id']){
+		echo "<a href=\"/index/del/?id=".$row[ 'id']. "\">删除</a>";
+	}
+	echo "<br><br>***************************************"; 
+}
+
+?>
+</body>
+</html>

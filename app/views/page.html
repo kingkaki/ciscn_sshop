@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Page Detail</title>
+</head>
+
+<body>
+<h1>*******************留言详情********************</h1>
+<a href="/">返回</a>
+<?php
+//dp($comments);
+    echo "<p>标题 : ".$data['title']."</p>\n";
+    echo "<p>内容 : ".$data['content']."</p>\n";
+    echo "<p>发布时间： ".date('Y-m-d H:i:s',$data['create_time'])."</p>\n";
+    
+    foreach($comments as $c)
+    {
+        echo "--------评论--------<br>";
+        echo $c['content']."<br>";
+        if(!isset($_SESSION)){ 
+            session_start(); 
+        }
+        if(isset($_SESSION['user']) && $data['userid']===$_SESSION['user']['id']){
+             echo  "<a href=\"/index/commentdel/?id=".$c['id']. "\">删除</a><br>"; 
+        }
+    }
+?>
+<form action="/index/commentadd/" method="post">
+    <input type="hidden" name="pageid" value='<?php echo $data['id'];?>'>
+    <p>评&nbsp;&nbsp;论&nbsp;
+        <textarea type="content" style="width: 230px;height: 120px;" name="content"></textarea>
+    </p>
+    <p>
+        <input type="submit" value="评论">
+    </p>
+</form>
+<?php
+    if(!isset($_SESSION)){
+         session_start(); 
+    } 
+    if(isset($_SESSION['user']) && $data['userid']===$_SESSION['user']['id']){
+        echo "<a href=\"/index/del/?id=".$data[ 'id']. "\">删除</a><br>"; 
+    }
+    echo "***************************************";
+    ?>
+</body>
+
+</html>
