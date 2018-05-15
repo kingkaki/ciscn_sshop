@@ -1,14 +1,17 @@
 <?php
 namespace app\ctrl;
 use app\model\userModel;
-use app\model\picUploadModel;
+use app\model\commoditysModel;
 
 class shopCtrl extends \core\mypro
 {
 
     public function index()
 	{
-		//商品列表
+		$model = new commoditysModel();
+		$commoditys = $model->all();
+		$this->assign('commoditys',$commoditys);
+		$this->display('shop.html');
 	}
 
 

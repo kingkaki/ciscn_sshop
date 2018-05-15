@@ -18,6 +18,7 @@ class route{
             $patharr = explode('/',trim($path,'/'));
             //处理图片等静态文件
             //dp($patharr);
+
             if($patharr[0]==='static')
             {
                 
@@ -35,8 +36,11 @@ class route{
             if(isset($patharr[0])){
                 $this->ctrl = $patharr[0];
             }
-            unset($patharr[0]);
-            if (isset($patharr[1])){
+            //unset($patharr[0]);   emmm可能有bug
+            if($patharr[0]==='info' && isset($patharr[1])){
+                $this->action = 'index';
+                $_GET['id'] = $patharr[1];
+            }else if (isset($patharr[1])){
                 $this->action = $patharr[1];
                 // $this->action = substr($patharr[1],0,strrpos($patharr[1],'?'));
                 // p($patharr[1]);exit();

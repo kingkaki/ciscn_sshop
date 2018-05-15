@@ -3,9 +3,9 @@ namespace app\model;
 
 use core\lib\model;
 
-class guestbookModel extends model
+class commoditysModel extends model
 {
-    public $table = 'page';
+    public $table = 'commoditys';
 
 
     public function all()
@@ -28,8 +28,8 @@ class guestbookModel extends model
 
     public function addOne($data)
     {
-        $sql = $this->prepare("INSERT INTO ".$this->table."(`userid`,`title`,`content`,`create_time`) VALUES (?,?,?,?)");
-        return $sql->execute(array($data['id'],$data['title'],$data['content'],$data['createtime']));
+        // $sql = $this->prepare("INSERT INTO ".$this->table."(`userid`,`title`,`content`,`create_time`) VALUES (?,?,?,?)");
+        // return $sql->execute(array($data['id'],$data['title'],$data['content'],$data['createtime']));
         
     }
 
@@ -45,14 +45,6 @@ class guestbookModel extends model
         }
     }
 
-    public function  getUserByPage($id)
-    {
-        $sql = $this->prepare("SELECT * FROM ".$this->table." WHERE `id`= ? ");
-        $sql->execute(array($id));
-        $res = $sql->fetchAll();
-        foreach ($res as $r) {
-				return $r['userid'];
-        }
-    }
+
 
 }

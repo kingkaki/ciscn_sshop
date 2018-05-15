@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Shop</title>
+</head>
+
+<body>
+    <h1>Shop</h1>
+<?php
+    if(!empty($commoditys))
+    {
+        foreach($commoditys as $commodity){?>
+        <td class="commodity-name">
+            <a href="/info/<?php echo $commodity['id'];?>/"><?php echo $commodity['name'];?></a>
+        </td>
+        <td><?php echo $commodity['price'];?></td>
+        <td><a href="/shopcar/add/">加入购物车</a></td>
+        <br>
+       <?php }
+    }
+
+?>
+
+</body>
+
+</html>
