@@ -26,8 +26,15 @@ class route{
                     header('content-type:image/jpg;');
                     echo file_get_contents(APP.$_SERVER['REQUEST_URI']);
                     exit();
+                }else if(@$patharr[1]=='css'){
+                    header('Content-type: text/css');
+                    echo file_get_contents(APP.$_SERVER['REQUEST_URI']);
+                    exit();
+                }else if(@$patharr[1]=='js'){
+                    header('Content-type: text/javascript');
+                    echo file_get_contents(APP.$_SERVER['REQUEST_URI']);
+                    exit();
                 }else{
-                    header('Content-Type: text/html; charset=utf-8');
                     echo file_get_contents(APP.$_SERVER['REQUEST_URI']);
                     exit();
                 }

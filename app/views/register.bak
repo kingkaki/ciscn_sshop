@@ -1,21 +1,33 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
-    <title>Login</title>
+    <title>Register Account</title>
 </head>
 <body>
-<h1>Login</h1>
+<h1>Register Account</h1>
 <a href="/">返回</a>
-<a href="/register/">注册</a>
-<form action="/login/" method="post">
+<a href="/login/">登录</a>
+<?php
+if(!empty($message)){
+    echo $message;
+}  ?>  
+<form action="/register/" method="post">
     <p>用户名：
         <input type="text" name="username">
+    </p>
+    <p>邮箱：
+        <input type="text" name="mail">
     </p>
     <p>密&nbsp;&nbsp;码：&nbsp;
         <input type="password" name="password">
     </p>
-    
+    <p>再次输入密码：
+        <input type="password" name="repeat_password">
+    </p>
+    <p>邀请人：
+        <input type="text" name="invite_user">
+    </p>
     <div>
         <label>验证码 (
             <?php echo $ques; ?>)：</label>
@@ -25,11 +37,11 @@
         <input type="hidden" id="captcha_y" name="captcha_y" value="">
     </div>
     <p>
-        <input type="submit" value="登录">
+        <input type="submit" value="注册">
     </p>
 </form>
 <script>
-    
+
     window.onload = function () {
         var c = document.getElementById("vtt_captcha");
         var ctx = c.getContext("2d");
@@ -59,4 +71,8 @@
 
 </script>
 </body>
-</html>
+</html> -->
+
+
+
+

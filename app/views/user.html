@@ -16,8 +16,16 @@
 &nbsp;&nbsp;
 <a href="/user/change/">修改密码</a>
 <br>
-<p> <?php if(!empty($user['email'])){
-    echo "email :".$user['email'];
-}?></p>
+<div class="user-info">
+<p> 
+    <?php if(!empty($user['email'])){
+         echo "email :".$user['email'];
+    }?>
+    
+</p>
+<p>
+    <?php echo "integral :".$user['integral'];?>
+</p>
+</div>
 </body>
 </html>

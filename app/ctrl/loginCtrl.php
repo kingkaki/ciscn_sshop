@@ -11,9 +11,9 @@ class loginCtrl extends \core\mypro
 		if(!isset($_SESSION)){
 			session_start();
 		}
-		if(isset($_SESSION['user'])){
-			jump('/user/');
-		}
+		// if(isset($_SESSION['user'])){
+		// 	jump('/user/');
+		// }
 		$captcha = new captchaModel();
 		if(!empty($_POST)){
 			$data['username'] = post('username');

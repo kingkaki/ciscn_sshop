@@ -1,71 +1,118 @@
+
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
+
 <head>
-	<meta charset="UTF-8">
-    <title>Register Account</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>sshop</title>
+    <!-- Bootstrap core CSS -->
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="/static/css/jumbotron-narrow.css" rel="stylesheet">
 </head>
+
 <body>
-<h1>Register Account</h1>
-<a href="/">返回</a>
-<a href="/login/">登录</a>
-<?php
-if(!empty($message)){
-    echo $message;
-}  ?>  
-<form action="/register/" method="post">
-    <p>用户名：
-        <input type="text" name="username">
-    </p>
-    <p>邮箱：
-        <input type="text" name="mail">
-    </p>
-    <p>密&nbsp;&nbsp;码：&nbsp;
-        <input type="password" name="password">
-    </p>
-    <p>再次输入密码：
-        <input type="password" name="repeat_password">
-    </p>
-    <div>
-        <label>验证码 (
-            <?php echo $ques; ?>)：</label>
+    <div class="container">
+        <div class="header clearfix">
+            <nav>
+                <ul class="nav nav-pills pull-right">
+                    <li role="presentation">
+                        <a href="/shop">商品列表</a>
+                    </li>
+
+                    <li role="presentation">
+                        <a href="/user">个人中心</a>
+                    </li>
+                    <li role="presentation">
+                        <a href="/seckill">！秒杀活动！</a>
+                    </li>
+                    <li role="presentation">
+                        <a href="/shopcar">购物车</a>
+                    </li>
+                    <li role="presentation">
+                        <a href="/user/change">修改密码</a>
+                    </li>
+                    <li role="presentation">
+                        <a href="/logout">注销</a>
+                    </li>
+
+                </ul>
+            </nav>
+            <h3 class="text-muted">sshop</h3>
+        </div>
+
+
+
+
+
+
+
+        <div class="row">
+            <form action="/register" method="post" class="col-lg-6 col-lg-offset-3">
+                <input type="hidden" name="_xsrf" value="2|209d7eac|46ce5788939ea96ce7ecd3104cb5d529|1526375925" />
+                <div class="form-group">
+                    <label>用户名：</label>
+                    <input type="text" class="form-control" name="username" placeholder="" required>
+                </div>
+                <div class="form-group">
+                    <label>邮箱：</label>
+                    <input type="email" class="form-control" name="mail" placeholder="" required>
+                </div>
+                <div class="form-group">
+                    <label>密码：</label>
+                    <input type="password" class="form-control" name="password" placeholder="" required>
+                </div>
+                <div class="form-group">
+                    <label>确认密码：</label>
+                    <input type="password" class="form-control" name="password_confirm" placeholder="" required>
+                </div>
+                <div class="form-group">
+                    <label>推荐人：</label>
+                    <input type="text" class="form-control" name="invite_user" placeholder="">
+                </div>
+                <div>
+                    <label>验证码 ( <?php echo $ques;?> )：</label>
+                    <br/>
+                    <canvas id="vtt_captcha" width="680" height="460" rel="49_1_1525969416871"></canvas>
+                    <input type="hidden" id="captcha_x" name="captcha_x" value="">
+                    <input type="hidden" id="captcha_y" name="captcha_y" value="">
+                </div>
+                <button class="btn btn-primary pull-right" type="submit">注册</button>
+            </form>
+        </div>
         <br/>
-        <canvas id="vtt_captcha" width="680" height="460" rel="<?php echo $src; ?>"></canvas>
-        <input type="hidden" id="captcha_x" name="captcha_x" value="">
-        <input type="hidden" id="captcha_y" name="captcha_y" value="">
+        <script>
+            window.onload = function () {
+                var c = document.getElementById("vtt_captcha");
+                var ctx = c.getContext("2d");
+                var img = new Image();
+                img.onload = function () {
+                    ctx.drawImage(img, 0, 0);
+                };
+                img.src = '<?php echo $src;?>';
+                c.onmousedown = function (event) {
+                    var rect = this.getBoundingClientRect();
+                    var x = (event.x - rect.left) * (this.width / rect.width);
+                    var y = (event.y - rect.top) * (this.height / rect.height);
+                    ctx = c.getContext("2d");
+                    ctx.beginPath();
+                    ctx.arc(x, y, 10, 0, 360, false);
+                    ctx.fillStyle = "red";
+                    ctx.fill();
+                    ctx.closePath();
+                    document.getElementById('captcha_x').value = x;
+                    document.getElementById('captcha_y').value = y;
+                }
+            };
+        </script>
+
+        <footer class="footer">
+            <p>&copy; 2016 Company, Inc.</p>
+        </footer>
     </div>
-    <p>
-        <input type="submit" value="注册">
-    </p>
-</form>
-<script>
-
-    window.onload = function () {
-        var c = document.getElementById("vtt_captcha");
-        var ctx = c.getContext("2d");
-        var img = new Image();
-        img.src = "<?php echo $src;?>";
-        img.onload = function () {
-            ctx.drawImage(img, 0, 0);
-        };
-
-        c.onmousedown = function (event) {
-            var rect = this.getBoundingClientRect();
-            var x = (event.x - rect.left) * (this.width / rect.width);
-            var y = (event.y - rect.top) * (this.height / rect.height);
-
-
-            ctx = c.getContext("2d");
-            ctx.beginPath();
-            ctx.arc(x, y, 10, 0, 360, false);
-            ctx.fillStyle = "red";
-            ctx.fill();
-            ctx.closePath();
-
-            document.getElementById('captcha_x').value = x;
-            document.getElementById('captcha_y').value = y;
-        }
-    };
-
-</script>
+    <!-- /container -->
 </body>
+
 </html>
