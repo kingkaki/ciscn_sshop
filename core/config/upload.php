@@ -1,7 +1,7 @@
 <?php
 
 return array(
-    'AVATAR' => '/upload/avatars/',
-    'CAP_JPGS' => '/upload/captcha/jpgs/',
-    'CAP_ANS' => '/upload/captcha/ans/'
+    'AVATAR' => '/static/avatars/',
+    'CAP_JPGS' => '/static/captcha/jpgs/',
+    'CAP_ANS' => '/static/captcha/ans/'
 );
