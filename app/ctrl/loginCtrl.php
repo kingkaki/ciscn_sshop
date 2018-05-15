@@ -20,22 +20,29 @@ class loginCtrl extends \core\mypro
 			$data['password'] = post('password');
 			$captcha_x = post('captcha_x');
 			$captcha_y = post('captcha_y');
-			if(!$captcha->check($captcha_x,$captcha_y))			{
+			if(!$captcha->check($captcha_x,$captcha_y)){
 				dp("captchar error!");
 			}
 			$model = new userModel();
 			$res = $model->getOne($data);
-			session_start();
-			$_SESSION['user'] = $res; 
-			jump('/user/');
-			exit();
+			if($res){
+				session_start();
+				$_SESSION['user'] = $res; 
+				jump('/user/');
+				exit();
+			}else{
+				dp("error");
+			}
+
+		}else{
+			$captcha->init();
+			$src = $captcha->src;
+			$ques = $captcha->ques;
+			$this->assign('src',$src);
+			$this->assign('ques',$ques);
+			$this->display('login.html');
 		}
-		$captcha->init();
-		$src = $captcha->src;
-		$ques = $captcha->ques;
-		$this->assign('src',$src);
-		$this->assign('ques',$ques);
-		$this->display('login.html');
+
 	}
 
 

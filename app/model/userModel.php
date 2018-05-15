@@ -9,16 +9,12 @@ class userModel extends model
 
 	public function addOne($data)
     {
-        $sql = $this->prepare("INSERT INTO ".$this->table."(`username`,`password`,`last_ip`,`is_admin`) VALUES (?,?,?,?)");
-        return $sql->execute(array($data['username'],$data['password'],$data['last_ip'],$data['is_admin']));
+        $sql = $this->prepare("INSERT INTO ".$this->table."(`username`,`password`,`mail`,`integral`) VALUES (?,?,?,?)");
+        return $sql->execute(array($data['username'],md5($data['password']),$data['mail'],$data['integral']));
         
     }
 
-    public function addAvatar($id,$path)
-    {
-        $sql = $this->prepare("UPDATE `".$this->table."` SET `avatar`=? WHERE `id`=?");
-        return $sql->execute(array($path,$id));
-    }
+
 
 	public function getOne($data)
     {

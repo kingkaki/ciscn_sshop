@@ -17,13 +17,16 @@ class route{
             $path = $_SERVER['REQUEST_URI'];
             $patharr = explode('/',trim($path,'/'));
             //处理图片等静态文件
+            //dp($patharr);
             if($patharr[0]==='static')
             {
+                
                 if(@$patharr[1]=='upload'){
                     header('content-type:image/jpg;');
                     echo file_get_contents(APP.$_SERVER['REQUEST_URI']);
                     exit();
                 }else{
+                    header('Content-Type: text/html; charset=utf-8');
                     echo file_get_contents(APP.$_SERVER['REQUEST_URI']);
                     exit();
                 }

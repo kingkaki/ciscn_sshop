@@ -67,9 +67,8 @@ class userCtrl extends \core\mypro
 				session_destroy();
 				jump('/login/');
 			}
-			
-
 		}else{
+			$this->assign('user',$_SESSION['user']);
 			$this->display('change.html');
 		}
 
