@@ -15,8 +15,12 @@
         <td class="commodity-name">
             <a href="/info/<?php echo $commodity['id'];?>/"><?php echo $commodity['name'];?></a>
         </td>
-        <td><?php echo $commodity['price'];?></td>
-        <td><a href="/shopcar/add/">加入购物车</a></td>
+        <td>price: <?php echo $commodity['price'];?></td>
+        <form action="/shopcar/add/" method="post">
+            <!-- <input type="hidden" name="_xsrf" value="2|29d52c12|4f8605369ad6fbd2eea481ae45fd8797|1526375925" /> -->
+            <input type="hidden" name="id" value="<?php echo $commodity['id']; ?>">
+            <button class="btn btn-lg btn-success">Buy</button>
+        </form>
         <br>
        <?php }
     }

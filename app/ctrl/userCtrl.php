@@ -10,7 +10,7 @@ class userCtrl extends \core\mypro
 	//个人信息页面
 	{
 		if(!loggedin()){
-			jump('/user/login/');
+			jump('/login/');
 		}else{
 			$user = $_SESSION['user'];
 			$this->assign('user',$user);

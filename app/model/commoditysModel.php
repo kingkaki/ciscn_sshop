@@ -6,6 +6,7 @@ use core\lib\model;
 class commoditysModel extends model
 {
     public $table = 'commoditys';
+    public $shopcar = 'shopcar';
 
 
     public function all()
@@ -24,6 +25,15 @@ class commoditysModel extends model
         foreach ($res as $r) {
 				return $r;
         }
+    }
+
+    public function getShopcarById($userid)
+    {
+        $sql = $this->prepare("SELECT b.name,b.desc,b.amount,b.price FROM ".$this->shopcar." a JOIN ".$this->table." b ON a.commodityid=b.id WHERE userid= ?");
+        $sql->execute(array($userid));
+        $res = $sql->fetchAll();
+        return $res;
+        
     }
 
     public function addOne($data)

@@ -1,8 +1,3 @@
-#shopcar table
-CREATE TABLE `shopcar`(
-    `id` INT(11) unsigned NOT NULL auto_increment,
-    PRIMARY KEY (`id`)
-)ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 
 #commoditys table
@@ -24,4 +19,14 @@ CREATE TABLE `user`(
     `password` VARCHAR(60) NOT NULL DEFAULT '',
     `integral` FLOAT NOT NULL,
     PRIMARY KEY (`id`)
+)ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+#shopcar table
+CREATE TABLE `shopcar`(
+    `id` INT(11) unsigned NOT NULL auto_increment,
+    `userid` int(11) unsigned NOT NULL DEFAULT 0,
+    `commodityid` int(11) unsigned NOT NULL DEFAULT 0,
+    PRIMARY KEY(`id`),
+    FOREIGN KEY(`userid`) references user(id),
+    FOREIGN KEY(`commodityid`) references commoditys(id)
 )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;

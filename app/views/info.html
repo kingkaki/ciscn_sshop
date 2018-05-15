@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Info</title>
+</head>
+
+<body>
+    <h1><?php echo $commodity['name']; ?></h1>
+
+
+    <h2>
+        <?php echo $commodity['desc']; ?>
+    </h2>
+
+    <p>amount: <?php echo $commodity['amount']; ?></p>
+    <p>price: <?php echo $commodity['price']; ?></p>
+    <br>
+    <form action="/pay/" method="post">
+        <!-- <input type="hidden" name="_xsrf" value="2|29d52c12|4f8605369ad6fbd2eea481ae45fd8797|1526375925" /> -->
+        <input type="hidden" name="id" value="<?php echo $commodity['id']; ?>">
+        <button class="btn btn-lg btn-success">Buy</button>
+    </form>
+</body>
+
+</html>

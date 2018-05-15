@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Shop Car</title>
+</head>
+
+<body>
+    <h1>Shop Car</h1>
+
+
+    <h2>
+        hello <?php echo $user['username']; ?>
+    </h2>
+
+    <?php
+        if(!empty($shopcar))
+        {
+            foreach($shopcar as $goods){
+            ?>
+            <ul class="list-group">
+                <li class="list-group-item"><?php echo $goods['name'];?> / <?php echo $goods['price'];?>￥ / <?php echo $goods['amount'];?> </li>
+            </ul>
+
+        <?php } }
+    ?>
+</body>
+
+</html>
