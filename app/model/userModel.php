@@ -14,13 +14,31 @@ class userModel extends model
         
     }
 
+    public function addCommodity($userid,$commodityid)
+    {
+        $sql = $this->prepare("UPDATE ".$this->table." SET commodityid=? WHERE `id`=? ");
+        return $sql->execute(array($commodityid,$userid));
+        
+    }
+
 
 
 	public function getOne($data)
     {
         $sql = $this->prepare("SELECT * FROM ".$this->table." WHERE `username`= ? AND `password`= ? limit 0,1");
-        //dp(array($data['username'],md5($data['password'])));
         $sql->execute(array($data['username'],md5($data['password'])));
+        $res = $sql->fetchAll();
+        
+        foreach ($res as $r) {
+                return $r;
+        }	
+        
+    }
+
+    public function getById($id)
+    {
+        $sql = $this->prepare("SELECT * FROM ".$this->table." WHERE `id`= ? ");
+        $sql->execute(array($id));
         $res = $sql->fetchAll();
         
         foreach ($res as $r) {
@@ -35,6 +53,22 @@ class userModel extends model
         //dp($sql);
         return $sql->execute(array(md5($data['password']),$data['id']));
         
+    }
+
+    public function addIntegral($username,$integral)
+    {
+        $sql = $this->prepare("UPDATE ".$this->table." SET `integral` = integral+? where `username` = ?");
+        return $sql->execute(array($integral,$username));
+    }
+
+    public function pay($userid,$price)
+    {
+        $sql = $this->prepare("UPDATE ".$this->table." SET integral= integral-? WHERE `id`=? ");
+        $sql->bindValue(1, $price, \PDO::PARAM_STR);
+        $sql->bindValue(2, $userid, \PDO::PARAM_STR);
+        $sql->execute();
+        return $sql;;
+
     }
 
 

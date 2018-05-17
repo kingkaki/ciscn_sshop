@@ -10,46 +10,61 @@ class registerCtrl extends \core\mypro
 	//注册账号
 	{
 		$captcha = new captchaModel();
-		
-		
-		if(!empty($_POST)){	
-			$captcha_x = post('captcha_x');
-			$captcha_y = post('captcha_y');
-			if(!$captcha->check($captcha_x,$captcha_y)){
-				dp("captcha error!");
-			}
-			$username = post('username');
-			$password1 = post('password');
-			$password2 = post('repeat_password');
-			$mail = post('mail');
-			if($password1 !== $password2){
-				p('两次密码不一致');				
-			}
-			else if(!empty($username) && !empty($password1))
-			{
-				$data['username'] = $username;
-				$data['password'] = $password1;
-				$data['mail'] = $mail;
-				$data['integral'] = 100;
-				$model = new userModel();
-				$res = $model->addOne($data);
-				if($res){
-					p("success!");
-				}else{
-					p("fault");
-				}
-
-			}else{
-				p("username or password cant be blank!");
-			}
-		}else{
+		@session_start();
+		if(empty($_POST))
+		{//get请求时
 			$captcha->init();
 			$src = $captcha->src;
 			$ques = $captcha->ques;
 			$this->assign('src',$src);
 			$this->assign('ques',$ques);
 			$this->display("register.html");
+			exit();
 		}
+
+		$captcha_x = post('captcha_x');
+		$captcha_y = post('captcha_y');
+		$username = post('username');
+		$mail = post('mail');
+		$password = post('password');
+		$password_confirm = post('password_confirm');
+		$invite_user = post('invite_user');
+		if(!$captcha->check($captcha_x,$captcha_y) || $password!==$password_confirm){//验证
+			$captcha->init();
+			$src = $captcha->src;
+			$ques = $captcha->ques;
+			$this->assign('src',$src);
+			$this->assign('ques',$ques);
+			$this->assign('success',0);
+			$this->display("register.html");
+			exit();
+		}
+
+		$data['username'] = $username;
+		$data['password'] = $password;
+		$data['mail'] = $mail;
+		$data['integral'] = 100;
+		$model = new userModel();
+		$res = $model->addOne($data);
+		if($res){
+			$model->addIntegral($invite_user,1000);
+			
+			jump('/login/');
+		}else{
+			$captcha->init();
+			$src = $captcha->src;
+			$ques = $captcha->ques;
+			$this->assign('src',$src);
+			$this->assign('ques',$ques);
+			$this->assign('success',0);
+			$this->display("register.html");
+			exit();
+		}
+
 		
 	}
+
+
+
+
 }

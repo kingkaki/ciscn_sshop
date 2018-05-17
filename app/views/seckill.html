@@ -17,10 +17,11 @@
         <div class="header clearfix">
             <nav>
                 <ul class="nav nav-pills pull-right">
+                    <?php if(loggedin()){?>
                     <li role="presentation">
                         <a href="/shop">商品列表</a>
                     </li>
-
+                    
                     <li role="presentation">
                         <a href="/user">个人中心</a>
                     </li>
@@ -36,38 +37,47 @@
                     <li role="presentation">
                         <a href="/logout">注销</a>
                     </li>
+                    <?php }else{?>
+                    <li role="presentation">
+                        <a href="/shop">商品列表</a>
+                    </li>
+                    
+                    <li role="presentation">
+                        <a href="/login">登录</a>
+                    </li>
+                    <li role="presentation">
+                        <a href="/register">注册</a>
+                    </li>
+                    <?php }?>
 
                 </ul>
             </nav>
             <h3 class="text-muted">sshop</h3>
         </div>
-
-
+        <?php
+            if(isset($success) && !$success){?>
+        <div class="alert alert-danger alert-dismissable">
+            操作失败。
+        </div>
+        <?php }?>
+        <?php
+            if(isset($success) && $success){?>
+        <div class="alert alert-success alert-dismissable">
+            操作成功。
+        </div>
+        <?php }?>
 
 
 
 
 
         <div class="jumbotron">
-            <h1>购物车</h1>
-
-
-            <div class="shopcar_list">
-                <?php 
-                    if(!empty($shopcar)){?>
-                     
-                <ul class="list-group">
-                    <li class="list-group-item"><?php echo $shopcar['name']; ?> / <?php echo sprintf("%0.2f",$shopcar['price']); ?></li>
-                </ul>
-                <?php   } ?>
-                <form action="/shopcar" method="post">
-                    <input type="hidden" name="_xsrf" value="2|c503f707|bdc3ea532d776ac174533b1665df16c4|1526434431" />
-                    <input type="hidden" name="commodityid" value="<?php echo $shopcar['id']; ?>">
-                    <button class="btn btn-danger" type="submit">结算</button>
-                </form>
-            </div>
-
-
+            <h1>秒杀活动</h1>
+            <form action="" method="post">
+                <input type="hidden" name="_xsrf" value="2|ff29409f|87e95dcb175ddd594e798c8e5ff5a15c|1526434431" />
+                <input class="hidden" name="id" value="1">
+                <button class="btn btn-danger" type="submit">秒杀</button>
+            </form>
         </div>
 
         <footer class="footer">
