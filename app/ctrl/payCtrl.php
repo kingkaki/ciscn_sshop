@@ -9,7 +9,8 @@ class payCtrl extends \core\mypro
     public function index()
 	{
         if(empty($_POST)){
-            exit();
+            $this->assign('success',0);
+            $this->display('pay.html');
         }
         if(!loggedin()){
             jump('/login');

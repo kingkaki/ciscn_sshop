@@ -63,11 +63,11 @@ class userModel extends model
 
     public function pay($userid,$price)
     {
-        $sql = $this->prepare("UPDATE ".$this->table." SET integral= integral-? WHERE `id`=? ");
+        $sql = $this->prepare("UPDATE ".$this->table." SET integral= integral-?,commodityid=0 WHERE `id`=? ");
         $sql->bindValue(1, $price, \PDO::PARAM_STR);
         $sql->bindValue(2, $userid, \PDO::PARAM_STR);
         $sql->execute();
-        return $sql;;
+        return $sql;
 
     }
 
